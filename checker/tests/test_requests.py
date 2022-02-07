@@ -13,8 +13,8 @@ class ExcelDataTest(TestCase):
     def setUp(self):
         self.valid_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/valid_excel.xlsx", "rb") as valid_file:
-            self.valid_file = base64.b64encode(valid_file.read())
-
+            self.valid_file = base64.b64encode(valid_file.read()).decode()
+        print(self.valid_file)
         self.valid_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
