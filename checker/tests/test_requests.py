@@ -13,16 +13,16 @@ class ExcelDataTest(TestCase):
     def setUp(self):
         self.valid_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/valid_excel.xlsx", "rb") as valid_file:
-            self.valid_file = base64.b64encode(valid_file.read()).decode()
+            self.valid_file = base64.b64encode(valid_file.read()).decode() + '=='
         self.valid_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
-            'file': [ self.valid_file ],
+            'file': [self.valid_file],
         }
 
         self.invalid_missing_data_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/invalid_excel.xlsx", "rb") as missing_data_file:
-            self.invalid_missing_data_file = base64.b64encode(missing_data_file.read())
+            self.invalid_missing_data_file = base64.b64encode(missing_data_file.read()).decode()
 
         self.invalid_missing_data_payload = {
             'name': 'Abowl',
@@ -32,7 +32,7 @@ class ExcelDataTest(TestCase):
 
         self.invalid_file_type = ''
         with open("/home/stiggu/cf-django-server/checker/tests/catpic.jpg", "rb") as invalid_file:
-            self.invalid_file_type = base64.b64encode(invalid_file.read())
+            self.invalid_file_type = base64.b64encode(invalid_file.read()).decode()
 
         self.invalid_file_type_payload = {
             'name': 'Abowl',
