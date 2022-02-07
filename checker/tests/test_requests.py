@@ -3,6 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 import json
 import base64
+import os
 
 client = Client()
 
@@ -12,7 +13,8 @@ class ExcelDataTest(TestCase):
 
     def setUp(self):
         self.valid_file = ''
-        with open("/home/stiggu/cf-django-server/checker/tests/valid_excel.xlsx", "rb") as valid_file:
+        print(os.getcwd())
+        with open(f"{os.getcwd()}/valid_excel.xlsx", "rb") as valid_file:
             self.valid_file = base64.b64encode(valid_file.read()).decode()
         self.valid_payload = {
             'name': 'Abowl',
