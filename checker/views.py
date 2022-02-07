@@ -54,17 +54,20 @@ def save_rates(df: pd.DataFrame, contract: Contracts) -> bool:
     :param contract: Objecto de Contratos
     :return:
     """
-    for index, row in df.iterrows():
-        rates_data = Rates(
-            contract=contract,
-            origin=row['POL'],
-            destination=row['POD'],
-            currency=row['Curr.'],
-            twenty=row["20'GP"],
-            forty=row["40'GP"],
-            fortyhc=row["40'HC"],
-        )
-        rates_data.save()
+    try:
+        for index, row in df.iterrows():
+            rates_data = Rates(
+                contract=contract,
+                origin=row['POL'],
+                destination=row['POD'],
+                currency=row['Curr.'],
+                twenty=row["20'GP"],
+                forty=row["40'GP"],
+                fortyhc=row["40'HC"],
+            )
+            rates_data.save()
+    except KeyError:
+        return False
 
     return True
 
