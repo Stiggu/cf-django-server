@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-%^jmn^iibt(!q$q1n#1^v6e=d=(yad=mfp^b8)%7cfv6)9_*ai
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'stiggu.pythonanywhere.com'
+]
 
 
 # Application definition
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
+    'https://cf-project.netlify.app',
 ]
 
 REST_FRAMEWORK = {

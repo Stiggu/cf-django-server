@@ -70,11 +70,12 @@ def compare(request):
     # Validando la data a la entrada con un Serializador
     request_serializer = SaveSerializer(data=request.data)
     if not request_serializer.is_valid():
-        return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'errors': request_serializer.errors, 'message': 'Alguno de los campos tiene data erronea.'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     # Asegurando que sean 2 archivos para la comparacion
     if len(request.data['file']) != 2:
-        return Response({'file': 'Deben ser 2 archivos para comparar.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Deben ser 2 archivos excel para comparar.'}, status=status.HTTP_400_BAD_REQUEST)
 
     # Decodificando los 2 archivos de Base64
     excel1 = decode_file(request.data['file'][0])
@@ -85,7 +86,8 @@ def compare(request):
         df1 = pd.read_excel(excel1)
         df2 = pd.read_excel(excel2)
     except ValueError:
-        return Response({'file': 'Esto deberia ser un archivo Excel.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'El campo de archivo deberia ser un archivo Excel.'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     # Creando un Dataframe que va a tener toda la data
     comparer_df = pd.DataFrame({})
@@ -108,7 +110,8 @@ def save(request):
     # Validando la data a la entrada con un Serializador
     request_serializer = SaveSerializer(data=request.data)
     if not request_serializer.is_valid():
-        return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'errors': request_serializer.errors, 'message': 'Alguno de los campos tiene data erronea.'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     # Guardando el contrato a la base de datos
     contract_data = save_contracts(request.data)
@@ -122,7 +125,8 @@ def save(request):
         try:
             df = pd.read_excel(excel)
         except ValueError:
-            return Response({'file': 'Esto deberia ser un archivo Excel.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'El campo de archivo deberia ser un archivo Excel.'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         # Salvando la data de las rutas a la base de datos
         save_rates(df, contract_data)
