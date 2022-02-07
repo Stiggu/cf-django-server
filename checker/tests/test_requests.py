@@ -13,14 +13,12 @@ class ExcelDataTest(TestCase):
     def setUp(self):
         self.valid_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/valid_excel.xlsx", "rb") as valid_file:
-            self.valid_file = str(base64.b64encode(valid_file.read()), 'utf-8')
+            self.valid_file = base64.b64encode(valid_file.read()).decode()
         self.valid_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
-            'file': [self.valid_file],
+            'file': [ self.valid_file ],
         }
-
-        print(json.dumps(self.valid_payload))
 
         self.invalid_missing_data_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/invalid_excel.xlsx", "rb") as missing_data_file:
