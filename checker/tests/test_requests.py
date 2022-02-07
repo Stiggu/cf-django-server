@@ -12,7 +12,7 @@ class CreateNewPuppyTest(TestCase):
 
     def setUp(self):
         self.valid_file = ''
-        with open("valid_excel.xlsx", "rb") as valid_file:
+        with open("./valid_excel.xlsx", "rb") as valid_file:
             self.valid_file = base64.b64encode(valid_file.read())
 
         self.valid_payload = {
@@ -22,7 +22,7 @@ class CreateNewPuppyTest(TestCase):
         }
 
         self.invalid_missing_data_file = ''
-        with open("invalid_excel.xlsx", "rb") as missing_data_file:
+        with open("./invalid_excel.xlsx", "rb") as missing_data_file:
             self.invalid_missing_data_file = base64.b64encode(missing_data_file.read())
 
         self.invalid_missing_data_payload = {
@@ -32,7 +32,7 @@ class CreateNewPuppyTest(TestCase):
         }
 
         self.invalid_file_type = ''
-        with open("invalid_excel.xlsx", "rb") as invalid_file:
+        with open("./catpic.jpg", "rb") as invalid_file:
             self.invalid_file_type = base64.b64encode(invalid_file.read())
 
         self.invalid_file_type_payload = {
