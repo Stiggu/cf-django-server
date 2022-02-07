@@ -37,7 +37,10 @@ def decode_file(codified_string) -> io.BytesIO:
     :param codified_string:
     :return: Devuelve el objeto BytesIO
     """
-    formatted_data = base64.b64decode(codified_string[codified_string.find('base64,') + 7:])
+    if codified_string.find(',') != -1:
+        formatted_data = base64.b64decode(codified_string[codified_string.find('base64,') + 7:])
+    else:
+        formatted_data = base64.b64decode(codified_string)
     excel = io.BytesIO()
     excel.write(formatted_data)
     excel.seek(0)
