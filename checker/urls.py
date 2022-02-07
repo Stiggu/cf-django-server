@@ -3,6 +3,6 @@ from .views import save, compare
 
 urlpatterns = [
     # path('', CheckerView.as_view()),
-    path('save/', save),
+    path('save/', save, name='save'),
     path('compare/', compare)
 ]
