@@ -17,7 +17,7 @@ class ExcelDataTest(TestCase):
         self.valid_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
-            'file': self.valid_file,
+            'file': [self.valid_file],
         }
 
         print(json.dumps(self.valid_payload))
@@ -29,7 +29,7 @@ class ExcelDataTest(TestCase):
         self.invalid_missing_data_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
-            'file': self.invalid_missing_data_file,
+            'file': [self.invalid_missing_data_file],
         }
 
         self.invalid_file_type = ''
@@ -39,7 +39,7 @@ class ExcelDataTest(TestCase):
         self.invalid_file_type_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
-            'file': self.invalid_file_type,
+            'file': [self.invalid_file_type],
         }
 
     def test_add_valid_data(self):
