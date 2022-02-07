@@ -43,10 +43,9 @@ class ExcelDataTest(TestCase):
     def test_add_valid_data(self):
         response = client.post(
             reverse('save'),
-            data=json.dumps(self.valid_payload),
+            data=self.valid_payload,
             content_type='application/json'
         )
-        print(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_add_missing_data(self):
