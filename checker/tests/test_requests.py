@@ -14,6 +14,7 @@ class ExcelDataTest(TestCase):
         self.valid_file = ''
         with open("/home/stiggu/cf-django-server/checker/tests/valid_excel.xlsx", "rb") as valid_file:
             self.valid_file = str(base64.b64encode(valid_file.read()), 'utf-8')
+        print(json.dumps(self.valid_file))
         self.valid_payload = {
             'name': 'Abowl',
             'date': '2022-10-22',
@@ -43,7 +44,7 @@ class ExcelDataTest(TestCase):
     def test_add_valid_data(self):
         response = client.post(
             reverse('save'),
-            data=self.valid_payload,
+            data=json.dumps(self.valid_payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
