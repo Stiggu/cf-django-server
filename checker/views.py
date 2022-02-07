@@ -44,7 +44,7 @@ def decode_file(codified_string) -> io.BytesIO:
     return excel
 
 
-def save_rates(df: pd.DataFrame, contract: Contracts) -> None:
+def save_rates(df: pd.DataFrame, contract: Contracts) -> bool:
     """
     Guarda cada fila del archivo excel (cada Ruta) a un contrato.
     :param df: Dataframe de Pandas
@@ -62,6 +62,8 @@ def save_rates(df: pd.DataFrame, contract: Contracts) -> None:
             fortyhc=row["40'HC"],
         )
         rates_data.save()
+
+    return True
 
 
 @api_view(['POST'])
@@ -128,8 +130,12 @@ def save(request):
             return Response({'message': 'El campo de archivo deberia ser un archivo Excel.'},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        # Salvando la data de las rutas a la base de datos
-        save_rates(df, contract_data)
+        # Guardando la data de las rutas a la base de datos
+        saved = save_rates(df, contract_data)
+
+        # En caso que falte data en el excel, devuelve un error
+        if not saved:
+            return Response({'message': 'El archivo Excel le falta data, revisar las columnas.'}, status=status.HTTP_400_BAD_REQUEST)
 
     # Serializando la respuesta desde la base de datos usando el contrato creado
     serializer = ContractSerializer(contract_data)
